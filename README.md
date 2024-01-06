@@ -2,12 +2,12 @@
 
 Welcome to My Bank Application! This full-stack web application is built with React, React Router DOM, Axios, Material UI, MUI Icons, Express, Mongoose, and MongoDB.
 
-## Link:-
+## Link:- https://radiant-moxie-80f7c1.netlify.app/
 
 ## Accounts
 
 -   Admin-Account: Admin@admin.com , password:12345678
--   Regular-Account-Active: test@test.com, password:12345678
+-   Regular-Account-Active: test@test.com , password:12345678
 -   Regular-Account-Inactive: test3@test.com , password:12345678
 
 ## Features
