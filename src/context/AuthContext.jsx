@@ -21,7 +21,10 @@ export function AuthProvider({ children }) {
 
     async function register(userData) {
         let result = await axios
-            .post("http://localhost:3000/api/v1/bank", userData)
+            .post(
+                "https://easy-blue-cockroach-coat.cyclic.app/api/v1/bank",
+                userData
+            )
             .then((res) => res.data)
             .catch((error) => error.response.data.message);
         if (typeof result !== "string") {
@@ -32,16 +35,18 @@ export function AuthProvider({ children }) {
     }
     async function login(email, password) {
         let result = await axios
-            .get("http://localhost:3000/api/v1/bank/user/by-email", {
-                params: { email: email },
-            })
+            .get(
+                "https://easy-blue-cockroach-coat.cyclic.app/api/v1/bank/user/by-email",
+                {
+                    params: { email: email },
+                }
+            )
             .then((res) => res.data[0])
             .catch((error) => error.response.data.message);
-        console.log(result);
         if (typeof result !== "string") {
             if (result.password === password) {
                 if (result.isActive) {
-                    console.log("login successful");
+                    
                     if (result.isAdmin) {
                         setIsAdmin(true);
                     }
@@ -66,9 +71,7 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"));
         if (user) {
-            setCurrentUser(user);
-            setIsAdmin(user.isAdmin);
-            navigate("/dashboard");
+            login(user.email, user.password);
         }
     }, []);
     const AuthContextValues = {

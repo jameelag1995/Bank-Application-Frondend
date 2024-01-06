@@ -64,7 +64,6 @@ export default function Register() {
             if (typeof result === "string") {
                 setRegisterError(result);
             } else {
-                console.log("register success");
                 navigate("/dashboard");
             }
         }

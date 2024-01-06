@@ -5,6 +5,7 @@ import {
     InputLabel,
     OutlinedInput,
     Paper,
+    Slide,
     Table,
     TableBody,
     TableCell,
@@ -18,11 +19,13 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import BasicModal from "../../components/BasicModal/BasicModal";
+import { useAuth } from "../../context/AuthContext";
 export default function UsersController() {
-    const url = `http://localhost:3000/api/v1/bank`;
+    const url = `https://easy-blue-cockroach-coat.cyclic.app/api/v1/bank`;
     const [displayedData, setDisplayedData] = useState([]);
     const [errorAlert, setErrorAlert] = useState("");
     const navigate = useNavigate();
+    const { logout } = useAuth();
     const minRef = useRef();
     const maxRef = useRef();
     const handleUsersClick = async (type, id = "") => {
@@ -120,165 +123,181 @@ export default function UsersController() {
         fetchData();
     }, []);
     return (
-        <div className="UsersController Page">
-            <Button variant="contained" onClick={() => navigate("/dashboard")}>
-                Back To Dashboard
-            </Button>
-            <div className="controller">
+        <Slide in direction="up">
+            <div className="UsersController Page">
                 <Button
+                    sx={{ position: "absolute", left: "8px", top: "8px" }}
                     variant="contained"
-                    sx={{ width: "300px" }}
-                    onClick={() => {
-                        handleUsersClick("/");
-                    }}
+                    color="error"
+                    onClick={logout}
                 >
-                    Show All Users
+                    Logout
                 </Button>
                 <Button
-                    variant="contained"
-                    sx={{ width: "300px" }}
-                    onClick={() => {
-                        handleUsersClick("/users/active");
-                    }}
+                    variant="outlined"
+                    color="secondary"
+                    onClick={() => navigate("/dashboard")}
                 >
-                    Show All Active Users
+                    Back To Dashboard
                 </Button>
-                <Button
-                    variant="contained"
-                    sx={{ width: "300px" }}
-                    onClick={() => {
-                        handleUsersClick("/users/inactive");
-                    }}
-                >
-                    Show All Inactive Users
-                </Button>
-            </div>
-            <div className="filter">
-                <Typography variant="h4">Filter Users</Typography>
-                <div className="filter-actions">
-                    <FormControl
-                        sx={{ m: 1, width: "200px" }}
-                        variant="outlined"
-                    >
-                        <InputLabel htmlFor="outlined-adornment-minimum">
-                            Minimum
-                        </InputLabel>
-                        <OutlinedInput
-                            required
-                            id="outlined-adornment-minimum"
-                            label="Minimum"
-                            inputRef={minRef}
-                            type="text"
-                            size="large"
-                        />
-                    </FormControl>
-                    <FormControl
-                        sx={{ m: 1, width: "200px" }}
-                        variant="outlined"
-                    >
-                        <InputLabel htmlFor="outlined-adornment-maximum">
-                            Maximum
-                        </InputLabel>
-                        <OutlinedInput
-                            required
-                            id="outlined-adornment-maximum"
-                            label="Maximum"
-                            inputRef={maxRef}
-                            type="text"
-                            size="large"
-                        />
-                    </FormControl>
+                <div className="controller">
                     <Button
                         variant="contained"
-                        onClick={() => handleFilterClick("cash")}
+                        sx={{ width: "300px" }}
+                        onClick={() => {
+                            handleUsersClick("/");
+                        }}
                     >
-                        Filter By Cash
+                        Show All Users
                     </Button>
                     <Button
                         variant="contained"
-                        onClick={() => handleFilterClick("credit")}
+                        sx={{ width: "300px" }}
+                        onClick={() => {
+                            handleUsersClick("/users/active");
+                        }}
                     >
-                        Filter By Credit
+                        Show All Active Users
                     </Button>
                     <Button
                         variant="contained"
-                        onClick={() => handleFilterClick("balance")}
+                        sx={{ width: "300px" }}
+                        onClick={() => {
+                            handleUsersClick("/users/inactive");
+                        }}
                     >
-                        Filter By Total Balance
+                        Show All Inactive Users
                     </Button>
                 </div>
-            </div>
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>User ID</TableCell>
-                            <TableCell>DB ID</TableCell>
-                            <TableCell>First Name</TableCell>
-                            <TableCell>Last Name</TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell>Created At</TableCell>
-                            <TableCell>Cash</TableCell>
-                            <TableCell>Credit</TableCell>
-                            <TableCell>Total</TableCell>
-                            <TableCell>Active</TableCell>
-                            <TableCell>Delete</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {displayedData.map((user) => (
-                            <TableRow key={user.userId}>
-                                <TableCell>{user.userId}</TableCell>
-                                <TableCell>{user._id}</TableCell>
-                                <TableCell>{user.firstName}</TableCell>
-                                <TableCell>{user.lastName}</TableCell>
-                                <TableCell>{user.email}</TableCell>
-                                <TableCell>{user.createdAt}</TableCell>
-                                <TableCell>{user.cash}</TableCell>
-                                <TableCell>{user.credit}</TableCell>
-                                <TableCell>{user.credit + user.cash}</TableCell>
-                                <TableCell>
-                                    <Button
-                                        onClick={() =>
-                                            handleActivation(
-                                                user._id,
-                                                user.isActive
-                                            )
-                                        }
-                                        variant="contained"
-                                        color={
-                                            user.isActive
-                                                ? "success"
-                                                : "warning"
-                                        }
-                                    >
-                                        {user.isActive
-                                            ? "Active"
-                                            : "Not Active"}
-                                    </Button>
-                                </TableCell>
-                                <TableCell>
-                                    <Button
-                                        variant="contained"
-                                        color="error"
-                                        onClick={() =>
-                                            handleUsersClick(
-                                                "/delete",
-                                                user._id
-                                            )
-                                        }
-                                    >
-                                        Delete
-                                    </Button>
-                                </TableCell>
+                <div className="filter">
+                    <Typography variant="h4">Filter Users</Typography>
+                    <div className="filter-actions">
+                        <FormControl
+                            sx={{ m: 1, width: "200px" }}
+                            variant="outlined"
+                        >
+                            <InputLabel htmlFor="outlined-adornment-minimum">
+                                Minimum
+                            </InputLabel>
+                            <OutlinedInput
+                                required
+                                id="outlined-adornment-minimum"
+                                label="Minimum"
+                                inputRef={minRef}
+                                type="text"
+                                size="large"
+                            />
+                        </FormControl>
+                        <FormControl
+                            sx={{ m: 1, width: "200px" }}
+                            variant="outlined"
+                        >
+                            <InputLabel htmlFor="outlined-adornment-maximum">
+                                Maximum
+                            </InputLabel>
+                            <OutlinedInput
+                                required
+                                id="outlined-adornment-maximum"
+                                label="Maximum"
+                                inputRef={maxRef}
+                                type="text"
+                                size="large"
+                            />
+                        </FormControl>
+                        <Button
+                            variant="contained"
+                            onClick={() => handleFilterClick("cash")}
+                        >
+                            Filter By Cash
+                        </Button>
+                        <Button
+                            variant="contained"
+                            onClick={() => handleFilterClick("credit")}
+                        >
+                            Filter By Credit
+                        </Button>
+                        <Button
+                            variant="contained"
+                            onClick={() => handleFilterClick("balance")}
+                        >
+                            Filter By Total Balance
+                        </Button>
+                    </div>
+                </div>
+                <TableContainer component={Paper}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>User ID</TableCell>
+                                <TableCell>DB ID</TableCell>
+                                <TableCell>First Name</TableCell>
+                                <TableCell>Last Name</TableCell>
+                                <TableCell>Email</TableCell>
+                                <TableCell>Created At</TableCell>
+                                <TableCell>Cash</TableCell>
+                                <TableCell>Credit</TableCell>
+                                <TableCell>Total</TableCell>
+                                <TableCell>Active</TableCell>
+                                <TableCell>Delete</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            {errorAlert && (
-                <BasicModal msg={errorAlert} setMsg={setErrorAlert} />
-            )}
-        </div>
+                        </TableHead>
+                        <TableBody>
+                            {displayedData.map((user) => (
+                                <TableRow key={user.userId}>
+                                    <TableCell>{user.userId}</TableCell>
+                                    <TableCell>{user._id}</TableCell>
+                                    <TableCell>{user.firstName}</TableCell>
+                                    <TableCell>{user.lastName}</TableCell>
+                                    <TableCell>{user.email}</TableCell>
+                                    <TableCell>{user.createdAt}</TableCell>
+                                    <TableCell>{user.cash}</TableCell>
+                                    <TableCell>{user.credit}</TableCell>
+                                    <TableCell>
+                                        {user.credit + user.cash}
+                                    </TableCell>
+                                    <TableCell>
+                                        <Button
+                                            onClick={() =>
+                                                handleActivation(
+                                                    user._id,
+                                                    user.isActive
+                                                )
+                                            }
+                                            variant="contained"
+                                            color={
+                                                user.isActive
+                                                    ? "success"
+                                                    : "warning"
+                                            }
+                                        >
+                                            {user.isActive
+                                                ? "Active"
+                                                : "Not Active"}
+                                        </Button>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Button
+                                            variant="contained"
+                                            color="error"
+                                            onClick={() =>
+                                                handleUsersClick(
+                                                    "/delete",
+                                                    user._id
+                                                )
+                                            }
+                                        >
+                                            Delete
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                {errorAlert && (
+                    <BasicModal msg={errorAlert} setMsg={setErrorAlert} />
+                )}
+            </div>
+        </Slide>
     );
 }
