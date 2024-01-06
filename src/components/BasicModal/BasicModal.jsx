@@ -18,7 +18,6 @@ const style = {
 
 export default function BasicModal({ msg, setMsg }) {
     const [open, setOpen] = React.useState(true);
-    const handleOpen = () => setOpen(true);
     const handleClose = () => {
         setMsg("");
         setOpen(false);
@@ -34,7 +33,6 @@ export default function BasicModal({ msg, setMsg }) {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                   
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         {msg}
                     </Typography>

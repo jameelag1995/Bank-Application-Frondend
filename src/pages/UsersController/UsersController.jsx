@@ -57,7 +57,10 @@ export default function UsersController() {
             case "/delete":
                 await axios
                     .delete(url + type + `/${id}`)
-                    .then(() => fetchData())
+                    .then(() => {
+                        fetchData();
+                        setErrorAlert("User Was Deleted Successfully");
+                    })
                     .catch((error) =>
                         setErrorAlert(error.response.data.message)
                     );

@@ -28,7 +28,10 @@ export default function Dashboard() {
                     .put(url, {
                         amount: parseInt(amountRef.current.value),
                     })
-                    .then((res) => setCurrentUser(res.data))
+                    .then((res) => {
+                        setCurrentUser(res.data);
+                        setInvalidInput("Deposit Was Successful");
+                    })
                     .catch((error) =>
                         setInvalidInput(error.response.data.message)
                     );
@@ -38,7 +41,10 @@ export default function Dashboard() {
                     .put(url, {
                         amount: parseInt(amountRef.current.value),
                     })
-                    .then((res) => setCurrentUser(res.data))
+                    .then((res) => {
+                        setCurrentUser(res.data);
+                        setInvalidInput("Updating Credit Was Successful");
+                    })
                     .catch((error) =>
                         setInvalidInput(error.response.data.message)
                     );
@@ -48,7 +54,10 @@ export default function Dashboard() {
                     .put(url, {
                         amount: parseInt(amountRef.current.value),
                     })
-                    .then((res) => setCurrentUser(res.data))
+                    .then((res) => {
+                        setCurrentUser(res.data);
+                        setInvalidInput("Withdraw Was Successful");
+                    })
                     .catch((error) =>
                         setInvalidInput(error.response.data.message)
                     );
@@ -63,10 +72,14 @@ export default function Dashboard() {
                             amount: parseInt(amountRef.current.value),
                         }
                     )
-                    .then((res) => setCurrentUser(res.data.sender))
+                    .then((res) => {
+                        setCurrentUser(res.data.sender);
+                        setInvalidInput("Transfer Was Successful");
+                    })
                     .catch((error) =>
                         setInvalidInput(error.response.data.message)
                     );
+
                 break;
             default:
                 setInvalidInput("Action not available");

@@ -46,7 +46,6 @@ export function AuthProvider({ children }) {
         if (typeof result !== "string") {
             if (result.password === password) {
                 if (result.isActive) {
-                    
                     if (result.isAdmin) {
                         setIsAdmin(true);
                     }
@@ -54,7 +53,7 @@ export function AuthProvider({ children }) {
                     setCurrentUser(result);
                 } else {
                     result =
-                        "Account is inActive Talk to the manager to Activate it";
+                        "Account is Not Active Talk to the Manager to Activate it";
                 }
             } else {
                 result = "Wrong Password!";
