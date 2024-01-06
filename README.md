@@ -7,7 +7,7 @@ Welcome to My Bank Application! This full-stack web application is built with Re
 ## Accounts
 
 -   Admin-Account: Admin@admin.com , password:12345678
--   Regular-Account-Active: test@test.com, password:12345678
+-   Regular-Account-Active: test@test.com , password:12345678
 -   Regular-Account-Inactive: test3@test.com , password:12345678
 
 ## Features
