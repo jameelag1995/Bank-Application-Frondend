@@ -100,7 +100,7 @@ export default function Dashboard() {
                 >
                     Logout
                 </Button>
-                {isAdmin && (
+                {currentUser?.isAdmin && (
                     <div className="admin-actions">
                         <Button
                             variant="contained"

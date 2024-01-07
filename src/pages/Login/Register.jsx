@@ -15,6 +15,7 @@ import {
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useAuth } from "../../context/AuthContext";
 import BasicModal from "../../components/BasicModal/BasicModal";
+import CircularIndeterminate from "../../components/CircularIndeterminate/CircularIndeterminate";
 
 function passwordConfirmation(mainPass, confirmPass, setRegisterError) {
     if (mainPass !== confirmPass) {
@@ -182,9 +183,17 @@ export default function Register() {
                         size="large"
                     />
                 </FormControl>
-                <Button variant="contained" type="submit" disabled={loading}>
-                    Register
-                </Button>
+                {loading ? (
+                    <CircularIndeterminate />
+                ) : (
+                    <Button
+                        variant="contained"
+                        type="submit"
+                        disabled={loading}
+                    >
+                        Register
+                    </Button>
+                )}
                 <LoginUsingSocialMedia />
             </form>
             {registerError && (

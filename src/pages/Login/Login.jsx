@@ -14,6 +14,7 @@ import {
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useAuth } from "../../context/AuthContext";
 import BasicModal from "../../components/BasicModal/BasicModal";
+import CircularIndeterminate from "../../components/CircularIndeterminate/CircularIndeterminate";
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const email = useRef();
@@ -38,7 +39,7 @@ export default function Login() {
             setInvalidInput(loginResult);
         } else {
             // navigate()
-            
+
             navigate("/dashboard");
         }
         setLoading((prev) => !prev);
@@ -92,9 +93,17 @@ export default function Login() {
                     />
                 </FormControl>
 
-                <Button variant="contained" type="submit" disabled={loading}>
-                    Log In
-                </Button>
+                {loading ? (
+                    <CircularIndeterminate />
+                ) : (
+                    <Button
+                        variant="contained"
+                        type="submit"
+                        disabled={loading}
+                    >
+                        Log In
+                    </Button>
+                )}
 
                 {invalidInput && (
                     <BasicModal msg={invalidInput} setMsg={setInvalidInput} />
