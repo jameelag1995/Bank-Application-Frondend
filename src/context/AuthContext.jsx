@@ -23,7 +23,15 @@ export function AuthProvider({ children }) {
         try {
             let result = await axios.post(
                 "https://easy-blue-cockroach-coat.cyclic.app/api/v1/bank",
-                userData
+                userData,
+                {
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json;charset=UTF-8",
+                        "Access-Control-Allow-Methods": "POST",
+                        "Access-Control-Allow-Origin": "*",
+                    },
+                }
             );
             if (typeof result.data !== "string") {
                 localStorage.setItem("user", JSON.stringify(result.data));
