@@ -26,9 +26,9 @@ export function AuthProvider({ children }) {
                 userData,
                 {
                     headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json;charset=UTF-8",
-                        "Access-Control-Allow-Methods": "POST",
+                        // Accept: "application/json",
+                        // "Content-Type": "application/json;charset=UTF-8",
+                        // "Access-Control-Allow-Methods": "POST",
                         "Access-Control-Allow-Origin": "*",
                     },
                 }
