@@ -21,7 +21,7 @@ import { useNavigate } from "react-router-dom";
 import BasicModal from "../../components/BasicModal/BasicModal";
 import { useAuth } from "../../context/AuthContext";
 export default function UsersController() {
-    const url = `https://easy-blue-cockroach-coat.cyclic.app/api/v1/bank`;
+    const url = "https://bank-api-backend-n0mp.onrender.com/api/v1/bank";
     const [displayedData, setDisplayedData] = useState([]);
     const [errorAlert, setErrorAlert] = useState("");
     const navigate = useNavigate();

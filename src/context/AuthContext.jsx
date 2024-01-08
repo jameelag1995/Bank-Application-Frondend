@@ -15,6 +15,7 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
+    const url = "https://bank-api-backend-n0mp.onrender.com/api/v1/bank";
     const [currentUser, setCurrentUser] = useState();
     const [isAdmin, setIsAdmin] = useState(false);
     const navigate = useNavigate();
@@ -39,12 +40,9 @@ export function AuthProvider({ children }) {
     }
     async function login(email, password) {
         let result = await axios
-            .get(
-                "https://easy-blue-cockroach-coat.cyclic.app/api/v1/bank/user/by-email",
-                {
-                    params: { email: email },
-                }
-            )
+            .get(url + "/user/by-email", {
+                params: { email: email },
+            })
             .then((res) => res.data[0])
             .catch((error) => error.response.data.message);
         if (typeof result !== "string") {

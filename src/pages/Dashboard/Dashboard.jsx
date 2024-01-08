@@ -14,6 +14,7 @@ import axios from "axios";
 import BasicModal from "../../components/BasicModal/BasicModal";
 import { useNavigate } from "react-router-dom";
 export default function Dashboard() {
+    const baseUrl = "https://bank-api-backend-n0mp.onrender.com/api/v1/bank";
     const { currentUser, setCurrentUser, isAdmin, logout } = useAuth();
     const [invalidInput, setInvalidInput] = useState("");
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ export default function Dashboard() {
 
     const receiverIdRef = useRef();
     const handleClick = async (type) => {
-        const url = `https://easy-blue-cockroach-coat.cyclic.app/api/v1/bank/${type}/${currentUser._id}`;
+        const url = `${baseUrl}/${type}/${currentUser._id}`;
         switch (type) {
             case "deposit":
                 await axios
@@ -64,14 +65,11 @@ export default function Dashboard() {
                 break;
             case "transfer":
                 await axios
-                    .put(
-                        `https://easy-blue-cockroach-coat.cyclic.app/api/v1/bank/${type}/`,
-                        {
-                            senderId: currentUser._id,
-                            receiverId: receiverIdRef.current.value,
-                            amount: parseInt(amountRef.current.value),
-                        }
-                    )
+                    .put(`${baseUrl}/${type}/`, {
+                        senderId: currentUser._id,
+                        receiverId: receiverIdRef.current.value,
+                        amount: parseInt(amountRef.current.value),
+                    })
                     .then((res) => {
                         setCurrentUser(res.data.sender);
                         setInvalidInput("Transfer Was Successful");
