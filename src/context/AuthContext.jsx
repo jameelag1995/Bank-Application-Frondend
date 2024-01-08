@@ -25,7 +25,6 @@ export function AuthProvider({ children }) {
                 "https://easy-blue-cockroach-coat.cyclic.app/api/v1/bank",
                 userData,
                 {
-                    withCredentials: true,
                     headers: {
                         Accept: "application/json",
                         "Content-Type": "application/json;charset=UTF-8",
