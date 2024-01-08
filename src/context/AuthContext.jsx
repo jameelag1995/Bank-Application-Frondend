@@ -18,7 +18,7 @@ export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState();
     const [isAdmin, setIsAdmin] = useState(false);
     const navigate = useNavigate();
-
+    // "http://localhost:3000/api/v1/bank";
     async function register(userData) {
         try {
             let result = await axios.post(
@@ -31,6 +31,7 @@ export function AuthProvider({ children }) {
             }
             return result.data;
         } catch (error) {
+            console.log(error.response.data.message);
             return error.response.data.message;
         }
     }
