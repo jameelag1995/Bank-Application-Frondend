@@ -20,9 +20,11 @@ export function AuthProvider({ children }) {
     const navigate = useNavigate();
     // "http://localhost:3000/api/v1/bank";
     async function register(userData) {
+        // "https://easy-blue-cockroach-coat.cyclic.app/api/v1/bank"
+
         try {
             let result = await axios.post(
-                "https://easy-blue-cockroach-coat.cyclic.app/api/v1/bank",
+                "https://bank-api-backend-n0mp.onrender.com/api/v1/bank",
                 userData
             );
             if (typeof result.data !== "string") {
