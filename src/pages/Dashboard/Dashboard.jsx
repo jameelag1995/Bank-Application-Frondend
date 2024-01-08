@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import BasicCard from "../../components/BasicCard/BasicCard";
 import "./DashBoard.css";
@@ -86,6 +86,11 @@ export default function Dashboard() {
                 break;
         }
     };
+    useEffect(() => {
+        if (localStorage.getItem("user") === "undefined") {
+            navigate("/");
+        }
+    }, []);
     return (
         <Slide in direction="up">
             <div className="Dashboard Page">

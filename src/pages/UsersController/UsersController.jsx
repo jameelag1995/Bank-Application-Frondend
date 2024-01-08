@@ -123,6 +123,11 @@ export default function UsersController() {
             .catch((error) => setErrorAlert(error.response.data.message));
     };
     useEffect(() => {
+        if (localStorage.getItem("user") === "undefined") {
+            navigate("/");
+            return;
+        }
+
         fetchData();
     }, []);
     return (
