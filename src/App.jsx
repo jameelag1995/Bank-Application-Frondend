@@ -13,7 +13,7 @@ import Register from "./pages/Login/Register";
 import { AuthProvider } from "./context/AuthContext";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import UsersController from "./pages/UsersController/UsersController";
-
+import NotFound from "./pages/NotFound/NotFound";
 function App() {
     const [modeColor, setModeColor] = useState("dark");
     const theme = createTheme({
@@ -40,6 +40,7 @@ function App() {
                         path="/users-controller"
                         element={<UsersController />}
                     />
+                    <Route path="/*" element={<NotFound />} />
                 </Routes>
             </AuthProvider>
         </ThemeProvider>
