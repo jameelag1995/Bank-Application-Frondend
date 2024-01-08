@@ -25,11 +25,11 @@ export function AuthProvider({ children }) {
                 "https://easy-blue-cockroach-coat.cyclic.app/api/v1/bank",
                 userData
             );
-            if (typeof result !== "string") {
-                localStorage.setItem("user", JSON.stringify(result));
-                setCurrentUser(result);
+            if (typeof result.data !== "string") {
+                localStorage.setItem("user", JSON.stringify(result.data));
+                setCurrentUser(result.data);
             }
-            return result;
+            return result.data;
         } catch (error) {
             return error.response.data.message;
         }
